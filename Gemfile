@@ -16,6 +16,10 @@ gem "puma", "~> 5.0"
 
 gem 'bcrypt'
 
+gem 'active_model_serializers'
+
+gem 'pry', '~> 0.13.1'
+
 gem 'rack-cors'
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"

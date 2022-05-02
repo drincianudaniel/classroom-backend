@@ -3,9 +3,10 @@ class UsersController < ApplicationController
     def index
         @users = User.all
            if @users
-              render json: {
-              users: @users
-           }
+            render json: ActiveModelSerializers::SerializableResource.new(
+                @users,
+                each_serializer: UserSerializer
+              ).as_json
           else
               render json: {
               status: 500,
@@ -43,8 +44,28 @@ class UsersController < ApplicationController
         }
         end
     end
+        
+    def UserClassrooms
+        # User.where(id:1).first.userclassrooms.where(classroom_id: 1)
+        # /users/:user_id/:classroom_id
+        ids = @current_user.userclassrooms.pluck(:classroom_id)
+        # Classroom.where(id: ids)
+        # varianta 2 \/
+        # classrooms = User.where(id:1).first.userclassrooms.map { |e| e.classroom}
+        @classrooms = Classroom.where(id: ids)
+           if @classrooms
+            render json: ActiveModelSerializers::SerializableResource.new(
+            @classrooms,
+            each_serializer: ClassroomSerializer
+          ).as_json
+          else
+              render json: {
+              status: 500,
+              errors: ['no classrooms found']
+          }
+        end
+    end
     
-
     private
      def user_params
          params.require(:user).permit(:name, :email, :password, :password_confirmation, :user_type)
@@ -63,6 +84,7 @@ class UsersController < ApplicationController
     #     users = User.all
     #     render json: users
     # end
+
 
     
 end

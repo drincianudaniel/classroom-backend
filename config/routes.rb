@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
   
+  # login routes
   post '/login',    to: 'sessions#create'
   delete '/logout',   to: 'sessions#destroy'
   get '/logged_in', to: 'sessions#is_logged_in?'
@@ -12,8 +13,17 @@ Rails.application.routes.draw do
     resources :items, only: [:create, :show, :index, :destroy]
   end
 
+  # users routes
   get "user/:id", to: "users#show"
   post "user", to: "users#create"
   get "users", to: "users#index"
+  get "usersclassrooms", to:"users#UserClassrooms"
 
+  # classrooms routes
+  get "classrooms", to:"classrooms#showAll"
+  post "createclass", to:"classrooms#createClass"
+  delete "delete/:id", to:"classrooms#deleteClass"
+
+  # assignments routes
+  get "assignments", to:"assignments#showAll"
 end

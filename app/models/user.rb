@@ -1,4 +1,4 @@
-class User < ApplicationRecord
+class User < ActiveRecord::Base
     
     has_secure_password
 
@@ -9,4 +9,11 @@ class User < ApplicationRecord
     validates :name, presence: true
     validates :name, uniqueness: true
 
+    has_many :userclassrooms
+    has_many :classrooms, through: :userclassrooms
+
+    has_many :userassignments
+    has_many :assignments, through: :userassignments
+
+    has_one :solution
 end
