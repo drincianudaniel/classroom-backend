@@ -66,6 +66,20 @@ class UsersController < ApplicationController
         end
     end
     
+    def userAssignment
+        ids = @current_user.userassignments.pluck(:assignment_id)
+        @assignments = Assignment.where(classroom_id: params[:id]).where(id: ids)
+        if @assignments
+            render json: {
+            assignments: @assignments
+            }
+        else
+            render json: {
+            status: 500,
+            errors: ['no assignment found']
+            }
+        end    
+    end
     private
      def user_params
          params.require(:user).permit(:name, :email, :password, :password_confirmation, :user_type)

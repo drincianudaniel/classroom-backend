@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   post "user", to: "users#create"
   get "users", to: "users#index"
   get "usersclassrooms", to:"users#UserClassrooms"
+  get "usersassignments/:id", to:"users#userAssignment"
 
   # classrooms routes
   get "classrooms", to:"classrooms#showAll"
