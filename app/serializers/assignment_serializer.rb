@@ -1,3 +1,3 @@
 class AssignmentSerializer < ActiveModel::Serializer
-  attributes :id
+  attributes :id, :name, :details
 end

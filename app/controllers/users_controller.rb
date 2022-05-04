@@ -70,9 +70,10 @@ class UsersController < ApplicationController
         ids = @current_user.userassignments.pluck(:assignment_id)
         @assignments = Assignment.where(classroom_id: params[:id]).where(id: ids)
         if @assignments
-            render json: {
-            assignments: @assignments
-            }
+            render json: ActiveModelSerializers::SerializableResource.new(
+                @assignments,
+                each_serializer: AssignmentSerializer
+              ).as_json
         else
             render json: {
             status: 500,
