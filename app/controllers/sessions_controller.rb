@@ -10,8 +10,7 @@ class SessionsController < ApplicationController
             user: @user
           }
         else
-          render json: { 
-            status: 401,
+          render status: :unauthorized, json: { 
             errors: ['no such user, please try again']
           }
         end
