@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get "users", to: "users#index"
   get "usersclassrooms", to:"users#UserClassrooms"
   get "usersassignments/:id", to:"users#userAssignment"
+  patch "updateuser", to:"users#update"
 
   # classrooms routes
   get "classrooms", to:"classrooms#showAll"

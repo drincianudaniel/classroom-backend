@@ -44,6 +44,26 @@ class UsersController < ApplicationController
         }
         end
     end
+
+    def update
+
+
+        params['user'].each do |cheie, valoare|
+            current_user[cheie.to_sym] = valoare
+        end
+        
+        # if current_user.update(name: params["user"]["name"], password: params["user"]["password"])
+        if current_user.save
+            render json:{
+                status: :updated,
+                user: current_user
+            }
+        else
+            render json: {
+            errors: current_user.errors.full_messages
+        }
+        end
+    end
         
     def UserClassrooms
         # User.where(id:1).first.userclassrooms.where(classroom_id: 1)
@@ -81,10 +101,15 @@ class UsersController < ApplicationController
             }
         end    
     end
+
     private
      def user_params
          params.require(:user).permit(:name, :email, :password, :password_confirmation, :user_type)
      end
+
+    def user_paramsUpdate
+        params.require(:user).permit(:name)
+    end
      
     # def show
     #     user = User.where(id: params[:id]).first
