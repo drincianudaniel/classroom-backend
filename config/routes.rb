@@ -28,4 +28,5 @@ Rails.application.routes.draw do
 
   # assignments routes
   get "assignments", to:"assignments#showAll"
+  post "createassignment", to:"assignments#createAssignment" 
 end
