@@ -1,4 +1,6 @@
 class ClassroomsController < ApplicationController
+    before_action :validate_user
+
     def showAll
         @classrooms = Classroom.all
            if @classrooms

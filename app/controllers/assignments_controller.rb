@@ -1,4 +1,5 @@
 class AssignmentsController < ApplicationController
+    before_action :validate_user
     def showAll
         @assignments = Assignment.all
            if @assignments

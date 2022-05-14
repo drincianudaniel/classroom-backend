@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-
+    before_action :validate_user
+    
     def index
         @users = User.all
            if @users
