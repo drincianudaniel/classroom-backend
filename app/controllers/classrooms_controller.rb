@@ -20,6 +20,7 @@ class ClassroomsController < ApplicationController
             status: :created,
             classrooms: @classroom
         }
+        Userclassroom.create(user_id:current_user.id, classroom_id:@classroom.id)
         else 
             render json: {
             status: 500,
