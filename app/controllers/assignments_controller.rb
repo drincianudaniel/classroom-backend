@@ -34,6 +34,22 @@ class AssignmentsController < ApplicationController
         end
     end
 
+    def deleteAssignment
+        @assignment = Assignment.find(params[:id])
+        if @assignment.destroy
+            render json: {
+                status: :deleted,
+                assignment: @assignment
+            }
+            else 
+                render json: {
+                status: 500,
+                errors: @assignment.errors.full_messages
+            }
+        end
+    end
+        
+
     private
     def assignment_params
         params.require(:assignment).permit(:classroom_id, :name, :details)
