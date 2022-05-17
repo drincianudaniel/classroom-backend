@@ -29,6 +29,6 @@ Rails.application.routes.draw do
   # assignments routes
   get "assignments", to:"assignments#showAll"
   post "createassignment", to:"assignments#createAssignment" 
-  #patch "editassignment", to:"assignments#editAssignment"
+  patch "editassignment/:id", to:"assignments#editAssignment"
   delete "deleteassignment/:id", to:"assignments#deleteAssignment"
 end
