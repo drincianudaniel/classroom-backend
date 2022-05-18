@@ -15,12 +15,12 @@ class SolutionController < ApplicationController
     end
 
     def showallSolutions
-        @solution = Solution.where(assignment_id: params[:id])
+        @solution = Solution.where(assignment_id: params[:id]).includes(:user)
         if @solution
-            render json:
-            {
-                solutions: @solution
-            }
+            render json: ActiveModelSerializers::SerializableResource.new(
+                @solution,
+                each_serializer: SolutionSerializer
+            ).as_json
         end
     end
 
