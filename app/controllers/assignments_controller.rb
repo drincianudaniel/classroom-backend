@@ -14,6 +14,20 @@ class AssignmentsController < ApplicationController
         end
     end
 
+    def showAssignment
+        @assignment = Assignment.find(params[:id])
+        if @assignment
+            render json:{
+                assignment: @assignment
+            }
+        else
+            render json:
+            {
+                errors: @assignment.errors.full_messages
+            }
+        end
+    end
+
     def createAssignment
         @assignment = Assignment.new(assignment_params)
         if @assignment.save

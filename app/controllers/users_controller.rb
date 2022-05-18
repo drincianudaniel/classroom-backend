@@ -116,15 +116,31 @@ class UsersController < ApplicationController
        end
     end
 
+    def addUsertoClass
+        @adding = Userclassroom.new(addUser_params)
+        if @adding.save
+            render json:{
+                created: @adding
+            }
+        else
+            render json:{
+                errors: @adding.errors.full_messages
+            }
+        end
+    end
+
     private
-     def user_params
-         params.require(:user).permit(:name, :email, :password, :password_confirmation, :user_type)
-     end
+    def user_params
+        params.require(:user).permit(:name, :email, :password, :password_confirmation, :user_type)
+    end
 
     def user_paramsUpdate
         params.require(:user).permit(:name)
     end
-     
+    
+    def addUser_params
+        params.require(:Userclassroom).permit(:user_id, :classroom_id)
+    end
     # def show
     #     user = User.where(id: params[:id]).first
     #     render json: user
