@@ -15,5 +15,5 @@ class User < ActiveRecord::Base
     has_many :userassignments
     has_many :assignments, through: :userassignments
 
-    has_one :solution
+    has_many :solutions
 end

@@ -31,4 +31,9 @@ Rails.application.routes.draw do
   post "createassignment", to:"assignments#createAssignment" 
   #patch "editassignment", to:"assignments#editAssignment"
   delete "deleteassignment/:id", to:"assignments#deleteAssignment"
+
+  # solution routes
+  post "createsolution", to:"solution#createSolution"
+  get "usersolutions/:id", to:"users#UserSolution"
+  get "allsolutions/:id", to:"solution#showallSolutions"
 end
