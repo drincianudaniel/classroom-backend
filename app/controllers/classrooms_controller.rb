@@ -45,6 +45,21 @@ class ClassroomsController < ApplicationController
             }
         end
     end
+    
+    def updateClass
+        @classroom = Classroom.find(params[:id])
+        if @classroom.update(name: params[:name], details: params[:details])
+            render json: {
+                status: :updated,
+                classrooms: @classroom
+            }
+        else
+            render json: {
+                status: 404,
+                errors: ['no classroom found to edit']
+            }
+        end
+    end
 
     private
     def classroom_params

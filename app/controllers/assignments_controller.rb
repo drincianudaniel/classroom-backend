@@ -48,6 +48,20 @@ class AssignmentsController < ApplicationController
             }
         end
     end
+
+    def editAssignment 
+        @assignment =Assignment.find(params[:id])
+        if @assignment.update(name: params[:name], details: params[:details])
+            render json:{
+                status: :updated,
+                assignment: @assignment
+            }
+        else
+            render json: {
+                errors: current_user.errors.full_messages
+            }
+        end
+    end
         
 
     private
