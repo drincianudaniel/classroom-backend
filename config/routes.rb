@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   get "classrooms", to:"classrooms#showAll"
   post "createclass", to:"classrooms#createClass"
   delete "delete/:id", to:"classrooms#deleteClass"
+  patch "updateclassroom/:id", to:"classrooms#updateClass"
 
   # assignments routes
   get "assignments", to:"assignments#showAll"
