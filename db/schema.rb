@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_01_123045) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_18_102219) do
   create_table "assignments", force: :cascade do |t|
     t.integer "classroom_id"
     t.string "name"
@@ -29,13 +29,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_01_123045) do
 
   create_table "solutions", force: :cascade do |t|
     t.integer "assignment_id"
-    t.integer "user_id"
     t.integer "grade"
     t.string "solution_content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
     t.index ["assignment_id"], name: "index_solutions_on_assignment_id"
-    t.index ["user_id"], name: "index_solutions_on_user_id", unique: true
+    t.index ["user_id"], name: "index_solutions_on_user_id"
   end
 
   create_table "userassignments", id: false, force: :cascade do |t|

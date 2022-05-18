@@ -103,6 +103,19 @@ class UsersController < ApplicationController
         end    
     end
 
+    def UserSolution
+        @solutions = Solution.where(assignment_id: params[:id]).where(user_id: current_user.id)
+        if @solutions
+            render json:{
+                solutions: @solutions
+            }
+       else
+           render json:{
+               errors: @solutions.errors.full_messages
+           }
+       end
+    end
+
     private
      def user_params
          params.require(:user).permit(:name, :email, :password, :password_confirmation, :user_type)
