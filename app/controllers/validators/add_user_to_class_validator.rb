@@ -1,10 +1,11 @@
-class Validations::AddUserToClassValidator
+class AddUserToClassValidator
   include ActiveModel::Validations
-
-  validates_presence_of :params[:email], :params[:classroom_id]
+  
+  attr_accessor :user, :errors
 
   def initialize(params)
     @errors = []
+    @user = nil
   end
 
   def validate_user
@@ -12,12 +13,12 @@ class Validations::AddUserToClassValidator
     
     return if @user.present?
 
-    @errors << 'Invalid email'
+    errors << 'Invalid email'
   end
 
   def classroom_exists
     if Classroom.where(id: params[:classroom_id]).empty?
-      @errors << 'Classroom does not exist'
+      errors << 'Classroom does not exist'
     end
   end
 end

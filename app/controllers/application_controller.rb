@@ -25,6 +25,18 @@ class ApplicationController < ActionController::Base
         end
     end
 
+    def validate_admin
+        @current_user = User.find(session[:user_id]) if session[:user_id]
+        if @current_user.nil?
+            render json:{error: "Not logged in"}, status: :unauthorized
+            return false
+        end
+        if @current_user.user_type == "Student"
+            render json:{error: "Not authorized"}, status: :unauthorized
+            return false
+        end
+    end
+
     def authorized_user?
         @user == current_user
     end
