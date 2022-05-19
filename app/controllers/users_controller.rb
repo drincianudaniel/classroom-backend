@@ -117,14 +117,18 @@ class UsersController < ApplicationController
     end
 
     def addUsertoClass
-        @adding = Userclassroom.new(addUser_params)
-        if @adding.save
+        user = User.where(email: params[:email]).first
+        user_classroom = Userclassroom.create(user_id: user.id, classroom_id: params[:classroom_id])
+        assignments = Assignment.where(classroom_id: user_classroom.classroom.id)
+        assignement_array = []
+        assignments.each { |a| assignement_array << {user_id: user_classroom.user_id, assignment_id: a.id} }
+        if assignement_array.empty? || Userassignment.insert_all(assignement_array)
             render json:{
-                created: @adding
+                created: user_classroom
             }
         else
             render json:{
-                errors: @adding.errors.full_messages
+                errors: user_classroom.errors.full_messages
             }
         end
     end
@@ -137,10 +141,7 @@ class UsersController < ApplicationController
     def user_paramsUpdate
         params.require(:user).permit(:name)
     end
-    
-    def addUser_params
-        params.require(:Userclassroom).permit(:user_id, :classroom_id)
-    end
+
     # def show
     #     user = User.where(id: params[:id]).first
     #     render json: user

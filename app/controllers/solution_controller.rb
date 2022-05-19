@@ -1,4 +1,6 @@
 class SolutionController < ApplicationController
+    #before_action :validate_user
+
     def createSolution
         @solution = Solution.new(solution_params)
         @solution.user_id = current_user.id
@@ -14,6 +16,8 @@ class SolutionController < ApplicationController
         end
     end
 
+
+    #before_action :validate_admin, only: [:showallSolutions]
     def showallSolutions
         @solution = Solution.where(assignment_id: params[:id]).includes(:user)
         if @solution
