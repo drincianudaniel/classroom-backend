@@ -54,6 +54,8 @@ class UsersController < ApplicationController
         end
         
         # if current_user.update(name: params["user"]["name"], password: params["user"]["password"])
+        user = User.find(current_user.id)
+        # if current_user.update(name: params[:name], password: params[:password])
         if current_user.save
             render json:{
                 status: :updated,
@@ -65,7 +67,21 @@ class UsersController < ApplicationController
         }
         end
     end
-        
+
+    def updatePassword
+        user = User.find(current_user.id)
+        if current_user.update(password: params[:password])
+            render json:{
+                status: :updated,
+                user: current_user
+            }
+        else
+            render json: {
+            errors: current_user.errors.full_messages
+        }
+        end
+    end
+ 
     def UserClassrooms
         # User.where(id:1).first.userclassrooms.where(classroom_id: 1)
         # /users/:user_id/:classroom_id

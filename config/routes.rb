@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   get "usersclassrooms", to:"users#UserClassrooms"
   get "usersassignments/:id", to:"users#userAssignment"
   patch "updateuser", to:"users#update"
+  patch "updatePassword", to:"users#updatePassword"
 
   # classrooms routes
   get "classrooms", to:"classrooms#showAll"
