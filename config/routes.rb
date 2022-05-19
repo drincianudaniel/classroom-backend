@@ -38,6 +38,7 @@ Rails.application.routes.draw do
   post "createsolution", to:"solution#createSolution"
   get "usersolutions/:id", to:"users#UserSolution"
   get "allsolutions/:id", to:"solution#showallSolutions"
+  patch "editsolutions/:id", to:"solution#editSolutions"
 
   #users to classrooms
   post "addUsertoClass", to:"users#addUsertoClass"

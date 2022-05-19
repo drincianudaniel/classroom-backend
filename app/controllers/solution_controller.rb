@@ -23,7 +23,19 @@ class SolutionController < ApplicationController
             ).as_json
         end
     end
-
+    def editSolutions
+        @solution = Solution.find(params[:id])
+        if @solution.update(grade: params[:grade])
+            render json:{
+                status: :updated,
+                solution: @solution
+            }
+        else 
+            render json: {
+            errors: @solution.errors.full_messages
+        }
+        end
+    end    
     private
     def solution_params
         params.require(:solution).permit(:assignment_id, :solution_content)

@@ -1,5 +1,5 @@
 class Assignment < ActiveRecord::Base
-    has_many :userassignments, dependent: :destroy
+    has_many :userassignments
     has_many :users, through: :userassignments
 
     belongs_to :classroom
