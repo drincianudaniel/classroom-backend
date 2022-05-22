@@ -4,6 +4,7 @@ RSpec.describe UsersController, type: :controller do
     before(:each) do
       @user = User.create(name: 'admin', email:'admin@gmail.com', user_type:'Teacher', password: '123')
       session[:user_id] = @user.id
+      @class = Classroom.create(name: 'admin', details: '123')
     end
     
     describe 'User tests' do
@@ -19,10 +20,10 @@ RSpec.describe UsersController, type: :controller do
             expect(response.status).to eq(200)
         end
 
-        # it 'Logout test' do
-        #     delete :destroy
-        #     data = JSON.parse(response.body)
-        #     expect(response.status).to eq(200)
-        # end
+        it 'Add user to class' do
+            post :UserClassrooms, params:{user_id: @user.id, classroom_id: @class.id}
+            data = JSON.parse(response.body)
+            expect(response.status).to eq(200)
+        end
     end
 end
