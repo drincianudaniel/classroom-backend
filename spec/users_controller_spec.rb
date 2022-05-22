@@ -12,6 +12,7 @@ RSpec.describe UsersController, type: :controller do
            post :create, params:{user:{name:'test', email:'test@gmail.com', password: '123', user_type: 'Teacher'}}
            data = JSON.parse(response.body)
            expect(response.status).to eq(200)
+           expect(User.count).to eq(2)
         end
 
         it 'Update password' do
