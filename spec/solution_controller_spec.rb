@@ -15,6 +15,13 @@ RSpec.describe SolutionController, type: :controller do
            data = JSON.parse(response.body)
            expect(response.status).to eq(200)
         end
-        
+      
+        it 'Edit Solution' do
+          patch :editSolutions, params:{id:@solution.id, grade:55}
+          data = JSON.parse(response.body)
+          expect(response.status).to eq(200)
+          @solution.reload
+          expect(@solution.grade).to eq(55)
+      end
     end
 end

@@ -25,5 +25,13 @@ RSpec.describe UsersController, type: :controller do
             data = JSON.parse(response.body)
             expect(response.status).to eq(200)
         end
+
+        it 'Update name' do
+            patch :update, params:{user:{name:"admin2"}}
+            data = JSON.parse(response.body)
+            expect(response.status).to eq(200)
+            @user.reload
+            expect(@user.name).to eq("admin2")
+        end
     end
 end

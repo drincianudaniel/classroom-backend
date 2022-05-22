@@ -13,18 +13,22 @@ RSpec.describe AssignmentsController, type: :controller do
            post :createAssignment, params:{assignment:{name:'test', details:'test details', classroom_id:@class.id}}
            data = JSON.parse(response.body)
            expect(response.status).to eq(200)
+           expect(Assignment.count).to eq(2)
         end
 
         it 'Edit Assignment' do
             patch :editAssignment, params:{id:@assignment.id, name:'testedit', details:'test details edited'}
             data = JSON.parse(response.body)
             expect(response.status).to eq(200)
+            @assignment.reload
+            expect(@assignment.details).to eq('test details edited')
         end
 
-        it 'Delete Assignment if the assignment exist' do
+        it 'Delete Assignment' do
             delete :deleteAssignment, params:{id:@assignment.id}
             data = JSON.parse(response.body)
             expect(response.status).to eq(200)
+            expect(Assignment.count).to eq(0)
         end
     end
 end
