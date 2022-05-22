@@ -14,6 +14,7 @@ RSpec.describe SolutionController, type: :controller do
            post :createSolution, params:{solution:{user_id: @user.id, assignment_id: @assignment.id,solution_content: 'admin132', grade: 90}}
            data = JSON.parse(response.body)
            expect(response.status).to eq(200)
+           expect(Solution.count).to eq(2)
         end
       
         it 'Edit Solution' do

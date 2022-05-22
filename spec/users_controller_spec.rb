@@ -22,9 +22,10 @@ RSpec.describe UsersController, type: :controller do
         end
 
         it 'Add user to class' do
-            post :UserClassrooms, params:{user_id: @user.id, classroom_id: @class.id}
+            post :addUsertoClass, params:{email: @user.email, classroom_id: @class.id}
             data = JSON.parse(response.body)
             expect(response.status).to eq(200)
+            expect(Userclassroom.count).to eq(1)
         end
 
         it 'Update name' do
