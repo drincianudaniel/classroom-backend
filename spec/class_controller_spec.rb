@@ -26,10 +26,5 @@ RSpec.describe ClassroomsController, type: :controller do
             expect(response.status).to eq(200)
         end
 
-        it 'Add user to class' do
-            post :createClass, params:{classrooms:{name: 'admin132', details: '12213'}}
-            data = JSON.parse(response.body)
-            expect(response.status).to eq(200)
-         end
     end
 end
