@@ -16,9 +16,13 @@ RSpec.describe UsersController, type: :controller do
         end
 
         it 'Update password' do
-            patch :updatePassword, params:{user:{password: '1234'}}
+            previous_digest=@user.attributes["password_digest"]
+            patch :updatePassword, params:{password: '1234'}
             data = JSON.parse(response.body)
             expect(response.status).to eq(200)
+            @user.reload
+            expect(@user.password_digest).not_to eq(previous_digest)
+            expect(@user.authenticate("1234")).not_to eq(false)
         end
 
         it 'Add user to class' do
